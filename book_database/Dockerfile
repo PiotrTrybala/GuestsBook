@@ -1,8 +1,0 @@
-FROM mysql:latest
-
-ENV MYSQL_USER=admin
-ENV MYSQL_PASSWORD=BAF85alIDqLwPMrFx1L8
-ENV MYSQL_DATABASE=guests
-ENV MYSQL_ROOT_PASSWORD=01bLo89gG9we8MLF0JUe
-
-COPY guests_db.sql /docker-entrypoint-initdb.d

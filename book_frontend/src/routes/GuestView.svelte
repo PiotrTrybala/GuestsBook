@@ -2,7 +2,10 @@
     import GuestRow from "./GuestRow.svelte";
 
     export let guests;
-    let limited_guests = guests["item"].slice(0, 5);
+
+    let lower_bound = guests["item"].length > 5 ? guests["item"].length - 5 : 0;
+
+    let limited_guests = guests["item"].slice(0 + lower_bound, 5 + lower_bound);
 </script>
 
 <div class="w-100 h-96 flex justify-center items-center">

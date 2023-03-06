@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+
+    .unset-all {
+        all: unset;
+    }
+
+    .guest-panel-input {
+
+        @apply mt-2 unset-all bg-white focus:bg-white text-black placeholder:text-gray-500 focus:unset-all focus:text-gray-500
+            h-10 w-60 text-xl focus:text-xl focus:h-10 focus:w-60;
+
+    }
+
+}

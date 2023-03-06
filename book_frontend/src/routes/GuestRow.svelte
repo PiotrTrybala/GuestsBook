@@ -5,7 +5,7 @@
     export let description = "";
 </script>
 
-<div class = "w-90 h-10 text-white bg-blue-500 flex justify-start items-center mb-2">
+<div class = "w-90 h-10  bg-white text-gray-500 rounded-xl flex justify-start items-center mb-2">
 
     <p class = "inline-block mr-20 w-20 ml-2">{first}</p>
     <p class = "inline-block mr-20 w-20">{last}</p>

@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const crypto = require('crypto');
 
 const fs = require('fs');
@@ -9,12 +10,15 @@ const router = express.Router();
 
 const session_storage = new Map();
 
-router.get('/guests/all', (req, res) => {
+router.get('/guests/all', cors(), (req, res) => {
     const raw_data = fs.readFileSync('guests.json');
+
+    console.log(JSON.parse(raw_data));
+
     res.json(JSON.parse(raw_data));
 });
 
-router.get('/guests/:id', (req, res) => {
+router.get('/guests/:id', cors(), (req, res) => {
 
     const raw_data = fs.readFileSync('guests.json');
 
@@ -24,7 +28,7 @@ router.get('/guests/:id', (req, res) => {
     res.json(user);
 });
 
-router.post('/guests/add', (req, res) => {
+router.post('/guests/add', cors(), (req, res) => {
 
     const body = req.body;
 
@@ -51,7 +55,7 @@ router.post('/guests/add', (req, res) => {
     res.sendStatus(201);
 });
 
-router.post('/guests/filter', (req, res) => {
+router.post('/guests/filter', cors(), (req, res) => {
 
     const first_name_filter = req.body.first_name;
     const last_name_filter = req.body.last_name;
@@ -72,7 +76,7 @@ router.post('/guests/filter', (req, res) => {
     res.json(users);
 });
 
-router.delete("/guests/:id", (req, res) => {
+router.delete("/guests/:id", cors(), (req, res) => {
 
     let raw_data = fs.readFileSync('guests.json');
     let users = JSON.parse(raw_data);
@@ -86,14 +90,14 @@ router.delete("/guests/:id", (req, res) => {
     res.json(user);
 });
 
-router.get('/sessionToken', (req, res) => {
+router.get('/sessionToken', cors(), (req, res) => {
     let token = crypto.createHash('sha256').update(crypto.randomBytes(16)).digest('hex');
     res.json({
         "token": token
     });
 });
 
-router.post('/authorize', (req, res) => {
+router.post('/authorize', cors(), (req, res) => {
     let token = req.body.token;
     let session_entry = session_storage.get(token);
 
@@ -114,7 +118,7 @@ router.post('/authorize', (req, res) => {
     })
 });
 
-router.post('/signIn', (req, res) => {
+router.post('/signIn', cors(), (req, res) => {
 
     let sess_token = req.body.token;
     let username = req.body.username;
@@ -138,7 +142,7 @@ router.post('/signIn', (req, res) => {
     res.json(202);
 });
 
-router.post('/signOut', (req, res) => {
+router.post('/signOut', cors(), (req, res) => {
 
     let session_token = req.body.token;
 
@@ -152,4 +156,4 @@ app.use(router);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
-})
+});
