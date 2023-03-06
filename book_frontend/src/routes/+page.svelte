@@ -1,36 +1,44 @@
+<script>
+    import GuestPanel from "./GuestPanel.svelte";
+    import AdminLogin from "./AdminLogin.svelte";
+    import GuestView from "./GuestView.svelte";
+    let menu = 0;
+</script>
 
-<div>
-
-    <div>
-
-        <div>
-            Navigation
-            <button>Guest form</button>
-            <button>Last n guests</button>
-            <button>Admin</button>
+<div class="h-screen w-screen flex justify-center items-center">
+    <div class="w-100 h-100 bg-blue-500">
+        <div class="w-100 flex justify-center items-center top-0 bg-red-500">
+            <div>
+                <button
+                    on:click={() => {
+                        menu = 0;
+                    }}>Guest form</button
+                >
+                <button
+                    on:click={() => {
+                        menu = 1;
+                    }}>Last n guests</button
+                >
+                <button
+                    on:click={() => {
+                        menu = 2;
+                    }}>Admin</button
+                >
+            </div>
         </div>
-
-        <div>
-            <div>FirstName LastName Description(0:30)</div>
+        <div class = "w-100 h-96 bg-green-500">
+            <!-- GuestView -->
+            {#if menu === 0}
+                <GuestPanel />
+            {:else if menu === 1}
+                <!-- AdminLogin -->
+                <GuestView />
+            {:else if menu === 2}
+                <!-- GuestPanel -->
+                <AdminLogin />
+            {:else}
+                <div>Could not load menu with id {menu}</div>
+            {/if}
         </div>
-
-        <div>
-            <form method = "post" action="?/login">
-                <input type = "text" placeholder = "Username">
-                <input type = "password" placeholder = "Password">
-                <input type = "submit" value = "Sign in">
-            </form>
-        </div>
-
-        <form method="post">
-            <input name = "first_name" type = "text" placeholder="Imię">
-            <input name = "last_name" type = "text" placeholder="Nazwisko">
-            <textarea name = "description" rows="10" cols="30">
-                Description 
-            </textarea>
-            <input type = "submit" value = "Zostań gościem!">
-        </form>
-
     </div>
-
 </div>
