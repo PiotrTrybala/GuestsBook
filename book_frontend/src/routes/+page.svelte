@@ -2,7 +2,12 @@
     import GuestPanel from "./GuestPanel.svelte";
     import AdminLogin from "./AdminLogin.svelte";
     import GuestView from "./GuestView.svelte";
-    let menu = 0;
+    import { onMount } from "svelte";
+    import { json } from "@sveltejs/kit";
+    let menu = 1;
+    /** @type {import('./$types').PageData} */
+    export let data;
+
 </script>
 
 <div class="h-screen w-screen flex justify-center items-center">
@@ -32,7 +37,7 @@
                 <GuestPanel />
             {:else if menu === 1}
                 <!-- AdminLogin -->
-                <GuestView />
+                <GuestView guests={data}/>
             {:else if menu === 2}
                 <!-- GuestPanel -->
                 <AdminLogin />
